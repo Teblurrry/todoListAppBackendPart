@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Set JAVA_HOME to use Java 17
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+
 # Clean and package the application
 ./mvnw clean package -DskipTests
 
