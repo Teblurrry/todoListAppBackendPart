@@ -9,7 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/target/todoList-0.0.1-SNAPSHOT.jar"
+      "dest": "/target/todoList-0.0.1-SNAPSHOT.jar target"
     }
   ]
 }
