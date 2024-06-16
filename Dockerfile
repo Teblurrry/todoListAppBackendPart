@@ -1,16 +1,11 @@
-FROM openjdk:17-jdk-alpine
+FROM maven:3.8.4-openjdk-17 AS build
 WORKDIR /app
-COPY .mvn/ .mvn
-COPY mvnw ./
-COPY mvnw.cmd ./
 COPY pom.xml ./
-RUN ./mvnw dependency:go-offline -B
 COPY src ./src
-RUN ./mvnw package -DskipTests
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
+RUN mvn clean package
 
-FROM openjdk:17-ea-28-jdk-slim-buster
+FROM openjdk:17-jdk-slim
+WORKDIR /app
 COPY --from=build /target/todoList-0.0.1-SNAPSHOT.jar todoList.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "todoList.jar"]
