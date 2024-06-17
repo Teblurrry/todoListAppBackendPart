@@ -1,11 +1,9 @@
-FROM maven:3.8.4-openjdk-17 AS build
+FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /app
-COPY pom.xml ./
-COPY src ./src
+COPY . .
 RUN mvn clean package
 
-FROM openjdk:17-jdk-slim
-WORKDIR /app
-COPY --from=build /target/todoList-0.0.1-SNAPSHOT.jar todoList.jar
+FROM openjdk:17.0.1-jdk-slim
+COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar demo.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "todoList.jar"]
+ENTRYPOINT ["java", "-jar", "demo.jar"]
